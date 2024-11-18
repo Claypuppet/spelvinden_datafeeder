@@ -1,3 +1,5 @@
+import html
+from bs4 import BeautifulSoup
 from django.db import models
 
 
@@ -21,7 +23,12 @@ class Game(models.Model):
 
     @property
     def available_game_affiliates(self):
-        return self.affiliate_games.filter(stock__gt=0)
+        return self.affiliate_games.filter(stock__gt=0).order_by('price')
+
+    @property
+    def clean_description(self):
+        # Use BeautifulSoup to remove HTML tags and just keep the plain text
+        return BeautifulSoup(html.unescape(self.description), 'html.parser').get_text().replace("\\n", " ")
 
 
 class Affiliate(models.Model):

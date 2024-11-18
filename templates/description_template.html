@@ -1,5 +1,5 @@
 <p>
-  {{ game.description|truncatechars:150 }}{% if game.description|length > 150 %}<em><a href="#tab-description">Lees verder</a></em>{% endif %}
+  {{ game.clean_description|truncatechars:150 }}{% if game.description|length > 150 %}<em><a href="#tab-description">Lees verder</a></em>{% endif %}
 </p>
 
 <h2><strong>Koop nu via:</strong></h2>

@@ -2,10 +2,13 @@
 
 import csv
 import locale
+import os
 
 from django.core.management.base import BaseCommand
 from django.db.models import Min, Max, Q, Count
 from django.template.loader import render_to_string
+from django.utils import timezone
+
 from games.models import Game
 
 locale.setlocale(locale.LC_ALL, 'nl_NL.UTF-8')
@@ -19,8 +22,13 @@ class Command(BaseCommand):
     help = 'Export game data to CSV with lowest affiliate prices and stock status.'
 
     def handle(self, *args, **options):
-        # Define the CSV file path
-        file_path = 'game_data_export.csv'
+        # Create the exports directory if it doesn't exist
+        export_dir = 'exports'
+        os.makedirs(export_dir, exist_ok=True)
+
+        # Create a timestamped filename
+        timestamp = timezone.now().strftime('%Y%m%d_%H%M%S')
+        file_path = os.path.join(export_dir, f'game_data_export_{timestamp}.csv')
 
         # Open the CSV file for writing
         with open(file_path, mode='w', newline='', encoding='utf-8') as file:
