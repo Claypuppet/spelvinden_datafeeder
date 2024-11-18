@@ -17,12 +17,6 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path
 
-from spelvinden_datafeeder.consumers import ProgressBarConsumer
-
 urlpatterns = [
     path('admin/', admin.site.urls),
-]
-
-websocket_urlpatterns = [
-    path('ws/update-progress/', ProgressBarConsumer.as_asgi()),
 ]
