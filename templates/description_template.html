@@ -1,0 +1,21 @@
+<p>
+  {{ game.description|truncatechars:150 }}{% if game.description|length > 150 %}<em><a href="#tab-description">Lees verder</a></em>{% endif %}
+</p>
+
+<h2><strong>Koop nu via:</strong></h2>
+
+{% for game_affiliate in game.available_game_affiliates %}
+<p>
+  <strong><a class="wp-block-button__link has-background" style="border-radius: 50px; background: linear-gradient(180deg,#fa9558 0%,#e95703 100%);" href="{{ game_affiliate.link }}" target="_blank" rel="noopener">
+    {{ game_affiliate.affiliate.name }}: €{{ game_affiliate.price|floatformat:2 }}
+  </a></strong>
+</p>
+{% empty %}
+<p>
+  <strong>Helaas, dit product is uitverkocht bij alle aanbieders</strong>
+</p>
+{% endfor %}
+
+<p>
+  <em>* Getoonde prijzen zijn excl. verzendkosten.</em>
+</p>
